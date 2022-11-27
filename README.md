@@ -1,323 +1,297 @@
 ![terminal-logos](https://user-images.githubusercontent.com/48369326/115790869-4c852b00-a37c-11eb-97f1-f61972c7800c.png)
 
-# Welcome to the Windows Terminal, Console and Command-Line repo
+# Windows Terminal, Konsol ve Komut Satırı deposuna hoş geldiniz.
 
-This repository contains the source code for:
+Bu depo aşağıdakiler için kaynak kodu içerir:
 
 * [Windows Terminal](https://aka.ms/terminal)
 * [Windows Terminal Preview](https://aka.ms/terminal-preview)
-* The Windows console host (`conhost.exe`)
-* Components shared between the two projects
+* Windows konsolu ana bilgisayarı (`conhost.exe`)
+* İki proje arasında paylaşılan bileşenler
 * [ColorTool](https://github.com/microsoft/terminal/tree/main/src/tools/ColorTool)
-* [Sample projects](https://github.com/microsoft/terminal/tree/main/samples)
-  that show how to consume the Windows Console APIs
+* [Örnek projeler](https://github.com/microsoft/terminal/tree/main/samples)
+  Windows Console API'lerinin nasıl kullanılacağını gösterir.
 
-Related repositories include:
+İlgili depolar şunlardır:
 
-* [Windows Terminal Documentation](https://docs.microsoft.com/windows/terminal)
-  ([Repo: Contribute to the docs](https://github.com/MicrosoftDocs/terminal))
-* [Console API Documentation](https://github.com/MicrosoftDocs/Console-Docs)
-* [Cascadia Code Font](https://github.com/Microsoft/Cascadia-Code)
+* [Windows Terminal Dokümantasyonu](https://docs.microsoft.com/windows/terminal)
+  ([Repo: Belgelere katkıda bulunun](https://github.com/MicrosoftDocs/terminal))
+* [Konsol API Dokümantasyonu](https://github.com/MicrosoftDocs/Console-Docs)
+* [Cascadia Kod Fontu](https://github.com/Microsoft/Cascadia-Code)
 
-## Installing and running Windows Terminal
+## Windows Terminal'i yükleme ve çalıştırma
 
-> **Note**: Windows Terminal requires Windows 10 2004 (build 19041) or later
+> **Note**: Windows Terminal için Windows 10 2004 (19041 derlemesi) veya üstü gerekir
 
-### Microsoft Store [Recommended]
+### Microsoft Store [Önerilen]
 
-Install the [Windows Terminal from the Microsoft Store][store-install-link].
-This allows you to always be on the latest version when we release new builds
-with automatic upgrades.
+[Microsoft Store'dan Windows Terminali][store-install-link] yükleyin.
+Bu, yeni derlemeler yayınladığımızda her zaman en son sürümde olmanızı sağlar otomatik yükseltmelerle.
 
-This is our preferred method.
+Bu bizim tercih ettiğimiz yöntemdir.
 
-### Other install methods
+### Diğer yükleme yöntemleri
 
-#### Via GitHub
+#### GitHub aracılığıyla
 
-For users who are unable to install Windows Terminal from the Microsoft Store,
-released builds can be manually downloaded from this repository's [Releases
-page](https://github.com/microsoft/terminal/releases).
+Windows Terminal'i Microsoft Store'dan yükleyemeyen kullanıcılar için, 
+yayınlanan derlemeler bu deponun [Sürümler sayfası](https://github.com/microsoft/terminal/releases) 
+adresinden manuel olarak indirilebilir.
 
-Download the `Microsoft.WindowsTerminal_<versionNumber>.msixbundle` file from
-the **Assets** section. To install the app, you can simply double-click on the
-`.msixbundle` file, and the app installer should automatically run. If that
-fails for any reason, you can try the following command at a PowerShell prompt:
+
+`Microsoft.WindowsTerminal_<versionNumber>.msixbundle` dosyasını şu adresten indirin **Assets** bölümünden ulaşabilirsiniz. 
+Uygulamayı yüklemek için `.msixbundle` dosyasını yüklediğinizde uygulama yükleyicinin otomatik olarak çalışması gerekir.
+Eğer bu herhangi bir nedenle başarısız olursa, PowerShell komut isteminde aşağıdaki komutu deneyebilirsiniz:
 
 ```powershell
-# NOTE: If you are using PowerShell 7+, please run
+# NOTE: PowerShell 7+ kullanıyorsanız, lütfen
 # Import-Module Appx -UseWindowsPowerShell
-# before using Add-AppxPackage.
+# Add-AppxPackage kullanmadan önce.
 
 Add-AppxPackage Microsoft.WindowsTerminal_<versionNumber>.msixbundle
 ```
 
-> **Note**: If you install Terminal manually:
+> **Note**: Terminal'i manuel olarak yüklerseniz:
 >
-> * You may need to install the [VC++ v14 Desktop Framework Package](https://docs.microsoft.com/troubleshoot/cpp/c-runtime-packages-desktop-bridge#how-to-install-and-update-desktop-framework-packages).  
->   This should only be necessary on older builds of Windows 10 and only if you get an error about missing framework packages.
-> * Terminal will not auto-update when new builds are released so you will need
->   to regularly install the latest Terminal release to receive all the latest
->   fixes and improvements!
+> * [VC++ v14 Desktop Framework Package](https://docs.microsoft.com/troubleshoot/cpp/c-runtime-packages-desktop-bridge#how-to-install-and-update-desktop-framework-packages) yüklemeniz gerekebilir.  
+>   Bu yalnızca Windows 10'un eski sürümlerinde ve yalnızca eksik çerçeve paketleriyle ilgili bir hata alırsanız gerekli olmalıdır.
+* Terminal, yeni yapılar yayınlandığında otomatik olarak güncellenmeyecektir, bu nedenle
+> en son Terminal sürümünü düzenli olarak yüklemek için
+> düzeltmeler ve iyileştirmeler!
 
-#### Via Windows Package Manager CLI (aka winget)
+#### Windows Paket Yöneticisi CLI (diğer adıyla winget) aracılığıyla
 
-[winget](https://github.com/microsoft/winget-cli) users can download and install
-the latest Terminal release by installing the `Microsoft.WindowsTerminal`
-package:
 
+[winget](https://github.com/microsoft/winget-cli) kullanıcıları indirebilir ve yükleyebilir
+`Microsoft.WindowsTerminal` dosyasını yükleyerek en son Terminal sürümünü
+Paket:
 ```powershell
 winget install --id Microsoft.WindowsTerminal -e
 ```
 
-#### Via Chocolatey (unofficial)
+#### Chocolatey aracılığıyla (resmi olmayan)
 
-[Chocolatey](https://chocolatey.org) users can download and install the latest
-Terminal release by installing the `microsoft-windows-terminal` package:
+[Chocolatey](https://chocolatey.org) kullanıcıları en son sürümü indirip yükleyebilir
+`microsoft-windows-terminal` paketini yükleyerek Terminal sürümü:
 
 ```powershell
 choco install microsoft-windows-terminal
 ```
 
-To upgrade Windows Terminal using Chocolatey, run the following:
+Chocolatey kullanarak Windows Terminal'i yükseltmek için aşağıdakileri çalıştırın:
 
 ```powershell
 choco upgrade microsoft-windows-terminal
 ```
 
-If you have any issues when installing/upgrading the package please go to the
-[Windows Terminal package
-page](https://chocolatey.org/packages/microsoft-windows-terminal) and follow the
-[Chocolatey triage process](https://chocolatey.org/docs/package-triage-process)
+Paketi yüklerken/yükseltirken herhangi bir sorun yaşarsanız lütfen
+[Windows Terminal paket sayfası](https://chocolatey.org/packages/microsoft-windows-terminal) ve
+[Chocolatey triyaj süreci](https://chocolatey.org/docs/package-triage-process).
 
-#### Via Scoop (unofficial)
+#### Scoop aracılığıyla (resmi olmayan)
 
-[Scoop](https://scoop.sh) users can download and install the latest Terminal
-release by installing the `windows-terminal` package:
+[Scoop](https://scoop.sh) kullanıcıları en son Terminal'i
+indirip yükleyebilirler `windows-terminal` paketini yükleyerek yayınlayın:
 
 ```powershell
 scoop bucket add extras
 scoop install windows-terminal
 ```
 
-To update Windows Terminal using Scoop, run the following:
+Scoop kullanarak Windows Terminal'i güncellemek için aşağıdakileri çalıştırın:
 
 ```powershell
 scoop update windows-terminal
 ```
 
-If you have any issues when installing/updating the package, please search for
-or report the same on the [issues
-page](https://github.com/lukesampson/scoop-extras/issues) of Scoop Extras bucket
-repository.
+Paketi yüklerken/güncellerken herhangi bir sorunla karşılaşırsanız,
+lütfen Scoop Extras bucket'in [sorunlar sayfasında](https://github.com/lukesampson/scoop-extras/issues) 
+aynı sorunu arayın veya bildirin Depo.
 
 ---
 
-## Windows Terminal Roadmap
+## Windows Terminal Yol Haritası
 
-The plan for the Windows Terminal [is described here](/doc/roadmap-2022.md) and
-will be updated as the project proceeds.
+Windows Terminali için plan [burada açıklanmıştır](/doc/roadmap-2022.md) 
+ve proje ilerledikçe güncellenecektir.
 
-## Project Build Status
+## Proje Yapı Durumu
 
-Project|Build Status
+Proje|Yapı Durumu
 ---|---
-Terminal|[![Terminal Build Status](https://dev.azure.com/ms/terminal/_apis/build/status/terminal%20CI?branchName=main)](https://dev.azure.com/ms/terminal/_build?definitionId=136)
-ColorTool|![Colortool Build Status](https://microsoft.visualstudio.com/_apis/public/build/definitions/c93e867a-8815-43c1-92c4-e7dd5404f1e1/17023/badge)
+Terminal|[![Terminal Yapı Durumu](https://dev.azure.com/ms/terminal/_apis/build/status/terminal%20CI?branchName=main)](https://dev.azure.com/ms/terminal/_build?definitionId=136)
+ColorTool|![Colortool Yapı Durumu](https://microsoft.visualstudio.com/_apis/public/build/definitions/c93e867a-8815-43c1-92c4-e7dd5404f1e1/17023/badge)
 
 ---
 
-## Terminal & Console Overview
+## Terminal & Konsola Genel Bakış
 
-Please take a few minutes to review the overview below before diving into the
-code:
+Lütfen aşağıdaki genel bakışı incelemek için birkaç dakikanızı ayırın. Kod:
 
 ### Windows Terminal
 
-Windows Terminal is a new, modern, feature-rich, productive terminal application
-for command-line users. It includes many of the features most frequently
-requested by the Windows command-line community including support for tabs, rich
-text, globalization, configurability, theming & styling, and more.
+Windows Terminal, komut satırı kullanıcıları için yeni, modern, zengin özelliklere sahip, üretken bir terminal uygulamasıdır.
+Windows komut satırı topluluğu tarafından en sık talep edilen sekme desteği, zengin metin, küreselleştirme, yapılandırılabilirlik, 
+temalandırma ve stil oluşturma ve daha birçok özelliği içerir.
 
-The Terminal will also need to meet our goals and measures to ensure it remains
-fast and efficient, and doesn't consume vast amounts of memory or power.
+Terminalin aynı zamanda hedeflerimizi ve tedbirlerimizi karşılaması gerekecektir. 
+Hızlı ve verimlidir ve büyük miktarda bellek veya güç tüketmez.
 
-### The Windows Console Host
+### Windows Konsol Ana Bilgisayarı
 
-The Windows Console host, `conhost.exe`, is Windows' original command-line user
-experience. It also hosts Windows' command-line infrastructure and the Windows
-Console API server, input engine, rendering engine, user preferences, etc. The
-console host code in this repository is the actual source from which the
-`conhost.exe` in Windows itself is built.
+Windows Console host, `conhost.exe`, Windows'un orijinal komut satırı kullanıcı deneyimidir. 
+Aynı zamanda Windows'un komut satırı altyapısını ve Windows Konsol API sunucusu, girdi motoru, işleme motoru, 
+kullanıcı tercihleri vb. Kullanıcı tercihleri Bu depodaki konsol ana bilgisayar kodu, 
+konsol ana bilgisayarının Windows'un kendisinde `conhost.exe` oluşturulmuştur.
 
-Since taking ownership of the Windows command-line in 2014, the team added
-several new features to the Console, including background transparency,
-line-based selection, support for [ANSI / Virtual Terminal
-sequences](https://en.wikipedia.org/wiki/ANSI_escape_code), [24-bit
-color](https://devblogs.microsoft.com/commandline/24-bit-color-in-the-windows-console/),
-a [Pseudoconsole
-("ConPTY")](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/),
-and more.
 
-However, because Windows Console's primary goal is to maintain backward
-compatibility, we have been unable to add many of the features the community
-(and the team) have been wanting for the last several years including tabs,
-unicode text, and emoji.
+Ekip, 2014 yılında Windows komut satırının sahipliğini aldığından beri Konsola arka plan şeffaflığı, 
+satır tabanlı seçim, [ANSI / Sanal Terminal dizileri](https://en.wikipedia.org/wiki/ANSI_escape_code) 
+desteği, [24-bit color](https://devblogs.microsoft.com/commandline/24-bit-color-in-the-windows-console/), 
+bir [Pseudoconsole
+("ConPTY")](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/) 
+ve daha fazlası.
 
-These limitations led us to create the new Windows Terminal.
+Ancak, Windows Console'un birincil amacı geriye dönük uyumluluğu nedeniyle, topluluk tarafından talep edilen birçok özelliği ekleyemedik.
+(ve ekibin) son birkaç yıldır sekmeler de dahil olmak üzere istedikleri, unicode metin ve emoji.
 
-> You can read more about the evolution of the command-line in general, and the
-> Windows command-line specifically in [this accompanying series of blog
+Bu sınırlamalar bizi yeni Windows Terminalini yaratmaya yöneltti.
+
+> Genel olarak komut satırının evrimi hakkında daha fazla bilgi edinebilir ve
+> Windows komut satırı özellikle [bu blog serisine eşlik eden
 > posts](https://devblogs.microsoft.com/commandline/windows-command-line-backgrounder/)
-> on the Command-Line team's blog.
+> Command-Line ekibinin blogunda.
 
-### Shared Components
+### Paylaşılan Bileşenler
 
-While overhauling Windows Console, we modernized its codebase considerably,
-cleanly separating logical entities into modules and classes, introduced some
-key extensibility points, replaced several old, home-grown collections and
-containers with safer, more efficient [STL
-containers](https://docs.microsoft.com/en-us/cpp/standard-library/stl-containers?view=vs-2022),
-and made the code simpler and safer by using Microsoft's [Windows Implementation
-Libraries - WIL](https://github.com/Microsoft/wil).
+Windows Console'u elden geçirirken, kod tabanını önemli ölçüde modernize ettik,
+mantıksal varlıkları modüllere ve sınıflara temiz bir şekilde ayırdık, bazı önemli genişletilebilirlik noktaları ekledik, birkaç eski, 
+evde yetiştirilen koleksiyonu ve daha güvenli, daha verimli [STL] ile konteynerler containers](https://docs.microsoft.com/en-us/cpp/standard-library/stl-containers?view=vs-2022) ve Microsoft'un [Windows Implementation Libraries - WIL](https://github.com/Microsoft/wil) 
+kullanarak kodu daha basit ve güvenli hale getirmiştir.
 
-This overhaul resulted in several of Console's key components being available
-for re-use in any terminal implementation on Windows. These components include a
-new DirectWrite-based text layout and rendering engine, a text buffer capable of
-storing both UTF-16 and UTF-8, a VT parser/emitter, and more.
+Bu revizyon, Console'un temel bileşenlerinden birkaçının 
+Windows'taki herhangi bir terminal uygulamasında yeniden kullanılabilmesiyle sonuçlandı. 
+Bu bileşenler şunları içerir
+yeni DirectWrite tabanlı metin düzeni ve işleme motoru,
+aşağıdakileri yapabilen bir metin tamponu hem UTF-16 hem de UTF-8 depolamak, 
+bir VT ayrıştırıcı / verici ve daha fazlası.
 
-### Creating the new Windows Terminal
+### Yeni Windows Terminali Oluşturma
 
-When we started planning the new Windows Terminal application, we explored and
-evaluated several approaches and technology stacks. We ultimately decided that
-our goals would be best met by continuing our investment in our C++ codebase,
-which would allow us to reuse several of the aforementioned modernized
-components in both the existing Console and the new Terminal. Further, we
-realized that this would allow us to build much of the Terminal's core itself as
-a reusable UI control that others can incorporate into their own applications.
+Yeni Windows Terminal uygulamasını planlamaya başladığımızda, aşağıdakileri araştırdık ve 
+çeşitli yaklaşımları ve teknoloji yığınlarını değerlendirdik. Sonunda şuna karar verdik
+hedeflerimize en iyi şekilde C++ kod tabanımıza yatırım yapmaya devam ederek ulaşabileceğimizi düşünüyoruz, 
+Bu da bize yukarıda bahsedilen modernize edilmiş bileşenlerini hem mevcut Konsolda hem de yeni Terminalde kullanıyoruz. 
+Ayrıca, biz bu sayede Terminalin çekirdeğinin büyük bir kısmını kendimiz inşa edebileceğimizi fark ettik. 
+Başkalarının kendi uygulamalarına dahil edebileceği yeniden kullanılabilir bir UI kontrolü.
 
-The result of this work is contained within this repo and delivered as the
-Windows Terminal application you can download from the Microsoft Store, or
-[directly from this repo's
-releases](https://github.com/microsoft/terminal/releases).
+Bu çalışmanın sonucu bu repoda yer almakta ve Microsoft Store'dan veya  indirebileceğiniz Windows Terminal uygulaması olarak sunulmaktadır.
+[doğrudan bu reponun sürümlerinden](https://github.com/microsoft/terminal/releases).
 
 ---
 
-## Resources
+## Kaynaklar
 
-For more information about Windows Terminal, you may find some of these
-resources useful and interesting:
+Windows Terminal hakkında daha fazla bilgi için bu kaynaklardan bazılarını yararlı ve ilginç bulabilirsiniz:
 
-* [Command-Line Blog](https://devblogs.microsoft.com/commandline)
-* [Command-Line Backgrounder Blog
-  Series](https://devblogs.microsoft.com/commandline/windows-command-line-backgrounder/)
-* Windows Terminal Launch: [Terminal "Sizzle
-  Video"](https://www.youtube.com/watch?v=8gw0rXPMMPE&list=PLEHMQNlPj-Jzh9DkNpqipDGCZZuOwrQwR&index=2&t=0s)
-* Windows Terminal Launch: [Build 2019
+* [Komut Satırı Blogu](https://devblogs.microsoft.com/commandline)
+* [Komut Satırı Arka Plan Bilgisi Blog Serisi.](https://devblogs.microsoft.com/commandline/windows-command-line-backgrounder/)
+* Windows Terminal Başlatma: [Terminal "Sizzle Video"](https://www.youtube.com/watch?v=8gw0rXPMMPE&list=PLEHMQNlPj-Jzh9DkNpqipDGCZZuOwrQwR&index=2&t=0s)
+* Windows Terminal Başlatma: [Build 2019
   Session](https://www.youtube.com/watch?v=KMudkRcwjCw)
-* Run As Radio: [Show 645 - Windows Terminal with Richard
+* Radyo Olarak Çalıştır: [Show 645 - Windows Terminal with Richard
   Turner](https://www.runasradio.com/Shows/Show/645)
-* Azure Devops Podcast: [Episode 54 - Kayla Cinnamon and Rich Turner on DevOps
-  on the Windows
-  Terminal](http://azuredevopspodcast.clear-measure.com/kayla-cinnamon-and-rich-turner-on-devops-on-the-windows-terminal-team-episode-54)
-* Microsoft Ignite 2019 Session: [The Modern Windows Command Line: Windows
-  Terminal -
-  BRK3321](https://myignite.techcommunity.microsoft.com/sessions/81329?source=sessions)
+* Azure Devops Podcast: [Bölüm 54 - Kayla Cinnamon ve Rich Turner Windows Terminalinde DevOps üzerine](http://azuredevopspodcast.clear-measure.com/kayla-cinnamon-and-rich-turner-on-devops-on-the-windows-terminal-team-episode-54)
+* Microsoft Ignite 2019 Session: [Modern Windows Komut Satırı: Windows Terminal - BRK3321](https://myignite.techcommunity.microsoft.com/sessions/81329?source=sessions)
 
 ---
 
-## FAQ
+## SSS
 
-### I built and ran the new Terminal, but it looks just like the old console
+### Yeni Terminali kurdum ve çalıştırdım, ancak tıpkı eski konsol gibi görünüyor.
 
-Cause: You're launching the incorrect solution in Visual Studio.
+Nedeni: Visual Studio'da yanlış çözümü başlatıyorsunuz.
 
-Solution: Make sure you're building & deploying the `CascadiaPackage` project in
-Visual Studio.
+Çözüm: `CascadiaPackage` projesini oluşturduğunuzdan ve dağıttığınızdan emin olun. Visual Studio.
 
-> **Note**: `OpenConsole.exe` is just a locally-built `conhost.exe`, the classic
-> Windows Console that hosts Windows' command-line infrastructure. OpenConsole
-> is used by Windows Terminal to connect to and communicate with command-line
-> applications (via
+> **Not**: `OpenConsole.exe` sadece yerel olarak oluşturulmuş bir `conhost.exe`dir, klasik
+> Windows'un komut satırı altyapısını barındıran Windows Konsolu. OpenConsole
+> Windows Terminal tarafından komut satırına bağlanmak ve komut satırıyla iletişim kurmak için kullanılır
+> uygulamalar (aracılığıyla
 > [ConPty](https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/)).
 
 ---
 
-## Documentation
+## Dokümantasyon
 
-All project documentation is located at [aka.ms/terminal-docs](https://aka.ms/terminal-docs). If you would like
-to contribute to the documentation, please submit a pull request on the [Windows
-Terminal Documentation repo](https://github.com/MicrosoftDocs/terminal).
+Tüm proje belgeleri [aka.ms/terminal-docs](https://aka.ms/terminal-docs) adresinde yer almaktadır.
+Eğer isterseniz belgelere katkıda bulunmak için lütfen [Windows Terminal Dokümantasyon deposu](https://github.com/MicrosoftDocs/terminal).
 
 ---
 
-## Contributing
+## Katkıda Bulunmak
 
-We are excited to work alongside you, our amazing community, to build and
-enhance Windows Terminal\!
+Sizlerle, muhteşem topluluğumuzla birlikte çalışmaktan heyecan duyuyoruz. Windows Terminal\'i geliştirin!
 
-***BEFORE you start work on a feature/fix***, please read & follow our
-[Contributor's
-Guide](https://github.com/microsoft/terminal/blob/main/CONTRIBUTING.md) to
-help avoid any wasted or duplicate effort.
+***Bir özellik/düzeltme üzerinde çalışmaya başlamadan ÖNCE***, lütfen okuyun ve [Katılımcının
+Kılavuz](https://github.com/microsoft/terminal/blob/main/CONTRIBUTING.md) adresine boşa harcanan 
+veya mükerrer çabaları önlemeye yardımcı olur.
 
-## Communicating with the Team
+## Ekiple İletişim Kurmak
 
-The easiest way to communicate with the team is via GitHub issues.
+Ekip ile iletişim kurmanın en kolay yolu GitHub sorunlarıdır.
 
-Please file new issues, feature requests and suggestions, but **DO search for
-similar open/closed preexisting issues before creating a new issue.**
+Lütfen yeni sorunları, özellik isteklerini ve önerileri dosyalayın, 
+ancak **DO Yeni bir sorun oluşturmadan önce önceden var olan benzer açık/kapalı sorunlar.**
 
-If you would like to ask a question that you feel doesn't warrant an issue
-(yet), please reach out to us via Twitter:
+Eğer bir sorunu gerektirmediğini düşündüğünüz bir soru sormak isterseniz (henüz), 
+lütfen bize Twitter üzerinden ulaşın:
 
-* Kayla Cinnamon, Program Manager:
+* Kayla Cinnamon, Program Yöneticisi:
   [@cinnamon\_msft](https://twitter.com/cinnamon_msft)
-* Dustin Howett, Engineering Lead: [@dhowett](https://twitter.com/DHowett)
-* Mike Griese, Senior Developer: [@zadjii](https://twitter.com/zadjii)
-* Carlos Zamora, Developer: [@cazamor_msft](https://twitter.com/cazamor_msft)
-* Pankaj Bhojwani, Developer
-* Leonard Hecker, Developer: [@LeonardHecker](https://twitter.com/LeonardHecker)
+* Dustin Howett, Mühendislik Lideri: [@dhowett](https://twitter.com/DHowett)
+* Mike Griese, Kıdemli Geliştirici: [@zadjii](https://twitter.com/zadjii)
+* Carlos Zamora, Geliştirici: [@cazamor_msft](https://twitter.com/cazamor_msft)
+* Pankaj Bhojwani, Geliştirici
+* Leonard Hecker, Geliştirici: [@LeonardHecker](https://twitter.com/LeonardHecker)
 
-## Developer Guidance
+## Geliştirici Rehberliği
 
-## Prerequisites
+## Ön Koşullar
 
-* You must be running Windows 10 2004 (build >= 10.0.19041.0) or later to run
-  Windows Terminal
-* You must [enable Developer Mode in the Windows Settings
+* Çalıştırmak için Windows 10 2004 (yapı >= 10.0.19041.0) veya üstünü çalıştırıyor olmanız gerekir
+  Windows Terminali
+* Windows Ayarları'nda Geliştirici Modu'nu etkinleştirmelisiniz
   app](https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development)
-  to locally install and run Windows Terminal
-* You must have [PowerShell 7 or later](https://github.com/PowerShell/PowerShell/releases/latest) installed
-* You must have the [Windows 11 (10.0.22621.0)
+  Windows Terminal'i yerel olarak yüklemek ve çalıştırmak için
+* PowerShell 7 veya üstü](https://github.com/PowerShell/PowerShell/releases/latest) yüklü olmalıdır
+* [Windows 11 (10.0.22621.0)] SDK'sına sahip olmalısınız
   SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
-  installed
-* You must have at least [VS
-  2022](https://visualstudio.microsoft.com/downloads/) installed
-* You must install the following Workloads via the VS Installer. Note: Opening
-  the solution in VS 2022 will [prompt you to install missing components
-  automatically](https://devblogs.microsoft.com/setup/configure-visual-studio-across-your-organization-with-vsconfig/):
-  * Desktop Development with C++
-  * Universal Windows Platform Development
-  * **The following Individual Components**
-    * C++ (v143) Universal Windows Platform Tools
-* You must install the [.NET Framework Targeting Pack](https://docs.microsoft.com/dotnet/framework/install/guide-for-developers#to-install-the-net-framework-developer-pack-or-targeting-pack) to build test projects
+  kurulu
+* En az [VS
+  2022](https://visualstudio.microsoft.com/downloads/) yüklü
+* Aşağıdaki İş Yüklerini VS Installer aracılığıyla yüklemeniz gerekir. Not: Açılış
+  VS 2022'deki çözüm [eksik bileşenleri yüklemenizi isteyecektir
+  otomatik olarak](https://devblogs.microsoft.com/setup/configure-visual-studio-across-your-organization-with-vsconfig/):
+  * C++ ile Masaüstü Geliştirme
+  * Evrensel Windows Platformu Geliştirme
+  * **Aşağıdaki Bireysel Bileşenler**
+    * C++ (v143) Evrensel Windows Platform Araçları
+* Test projeleri oluşturmak için [.NET Framework Targeting Pack](https://docs.microsoft.com/dotnet/framework/install/guide-for-developers#to-install-the-net-framework-developer-pack-or-targeting-pack) yüklemeniz gerekir.
 
-## Building the Code
+## Kod Oluşturma.
 
-This repository uses [git
-submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for some of its
-dependencies. To make sure submodules are restored or updated, be sure to run
-the following prior to building:
+Bu depo [git alt modülleri](https://git-scm.com/book/en/v2/Git-Tools-Submodules) için bağımlılıklar. 
+Alt modüllerin geri yüklendiğinden veya güncellendiğinden emin olmak için inşaattan önce aşağıdakileri yapın:
 
 ```shell
 git submodule update --init --recursive
 ```
 
-OpenConsole.sln may be built from within Visual Studio or from the command-line
-using a set of convenience scripts & tools in the **/tools** directory:
+OpenConsole.sln, Visual Studio içinden veya komut satırından oluşturulabilir
+dizinindeki bir dizi kullanışlı komut dosyası ve araç kullanarak:
 
-### Building in PowerShell
+### PowerShell ile Oluşturma
 
 ```powershell
 Import-Module .\tools\OpenConsole.psm1
@@ -325,53 +299,53 @@ Set-MsBuildDevEnvironment
 Invoke-OpenConsoleBuild
 ```
 
-### Building in Cmd
+### Cmd'de Oluşturma
 
 ```shell
 .\tools\razzle.cmd
 bcz
 ```
 
-## Running & Debugging
+## Çalıştırma & Hata Ayıklama
 
-To debug the Windows Terminal in VS, right click on `CascadiaPackage` (in the
-Solution Explorer) and go to properties. In the Debug menu, change "Application
-process" and "Background task process" to "Native Only".
+VS'de Windows Terminalinde hata ayıklamak için `CascadiaPackage` üzerine sağ tıklayın (VS'de
+Solution Explorer) ve özelliklere gidin. Hata Ayıklama menüsünde, "Uygulama
+süreci" ve "Arka plan görev süreci" öğelerini "Yalnızca Yerel" olarak değiştirin.
 
-You should then be able to build & debug the Terminal project by hitting
-<kbd>F5</kbd>. Make sure to select either the "x64" or the "x86" platform - the
-Terminal doesn't build for "Any Cpu" (because the Terminal is a C++ application,
-not a C# one).
+Daha sonra Terminal projesini derleyebilmeli ve hata ayıklayabilmelisiniz
+<kbd>F5</kbd>. "x64" veya "x86" platformlarından birini seçtiğinizden emin olun - x64
+Terminal "Any Cpu" için oluşturulmaz (çünkü Terminal bir C++ uygulamasıdır,
+bir C# değil).
 
-> 👉 You will _not_ be able to launch the Terminal directly by running the
-> WindowsTerminal.exe. For more details on why, see
+> 👉 Terminal'i aşağıdaki komutu çalıştırarak doğrudan başlatamazsınız
+> WindowsTerminal.exe. Nedeniyle ilgili daha fazla ayrıntı için bakınız.
 > [#926](https://github.com/microsoft/terminal/issues/926),
 > [#4043](https://github.com/microsoft/terminal/issues/4043)
 
-### Coding Guidance
+### Kodlama Rehberliği
 
-Please review these brief docs below about our coding practices.
+Lütfen kodlama uygulamalarımız hakkında aşağıdaki kısa dokümanları inceleyin.
 
-> 👉 If you find something missing from these docs, feel free to contribute to
-> any of our documentation files anywhere in the repository (or write some new
-> ones!)
+> 👉 Bu dokümanlarda eksik bir şey bulursanız, katkıda bulunmaktan çekinmeyin
+> deponun herhangi bir yerindeki dokümantasyon dosyalarımızdan herhangi biri (veya yeni
+> olanlar!)
 
 This is a work in progress as we learn what we'll need to provide people in
 order to be effective contributors to our project.
 
-* [Coding Style](https://github.com/microsoft/terminal/blob/main/doc/STYLE.md)
-* [Code Organization](https://github.com/microsoft/terminal/blob/main/doc/ORGANIZATION.md)
-* [Exceptions in our legacy codebase](https://github.com/microsoft/terminal/blob/main/doc/EXCEPTIONS.md)
-* [Helpful smart pointers and macros for interfacing with Windows in WIL](https://github.com/microsoft/terminal/blob/main/doc/WIL.md)
+* [Kodlama Stili](https://github.com/microsoft/terminal/blob/main/doc/STYLE.md)
+* [Kod Organizasyonu](https://github.com/microsoft/terminal/blob/main/doc/ORGANIZATION.md)
+* [Eski kod tabanımızdaki istisnalar](https://github.com/microsoft/terminal/blob/main/doc/EXCEPTIONS.md)
+* [WIL'de Windows ile arayüz oluşturmak için faydalı akıllı işaretçiler ve makrolar](https://github.com/microsoft/terminal/blob/main/doc/WIL.md)
 
 ---
 
-## Code of Conduct
+## Davranış Kuralları
 
-This project has adopted the [Microsoft Open Source Code of
-Conduct][conduct-code]. For more information see the [Code of Conduct
-FAQ][conduct-FAQ] or contact [opencode@microsoft.com][conduct-email] with any
-additional questions or comments.
+Bu proje, [Microsoft Açık Kaynak Kodunu] benimsemiştir.
+Davranış][conduct-code]. Daha fazla bilgi için [Davranış Kuralları
+SSS][conduct-FAQ] veya [opencode@microsoft.com][conduct-email] ile iletişime geçin.
+ek sorular veya yorumlar.
 
 [conduct-code]: https://opensource.microsoft.com/codeofconduct/
 [conduct-FAQ]: https://opensource.microsoft.com/codeofconduct/faq/
